@@ -3,11 +3,22 @@ require './lib/node'
 class Tree
   attr_reader :head
 
-  def push(letter, fullword)
-    if head.nil?
-      @head = Node.new(" ", false)
+  def initialize
+      @head = Node.new("")
+  end
+
+  def insert(word)
+    node = @head
+
+    word.chars.each do |letter|
+      unless node.links_to?(letter)
+        node.create_link(letter)
+      end
+      node = node.link_for(letter)
     end
-    node = Node.new(letter, fullword)
-    head.push(node)
+    node.create_link("")
+  end
+
+  def suggest
   end
 end
