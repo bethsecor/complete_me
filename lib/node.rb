@@ -12,6 +12,5 @@ class Node
     else
       @links.merge!({ node.letter => node })
     end
-    # @links.push(node)
   end
 end
