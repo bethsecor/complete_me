@@ -1,15 +1,16 @@
 class Node
   attr_accessor :letter, :links
 
-  def initialize(letter)
+  def initialize(letter, fullword)
     @letter = letter
+    @fullword = fullword
   end
 
   def push(node)
     if links.nil?
-      @links = { letter => node }
+      @links = { node.letter => node }
     else
-      @links.merge!({ letter => node })
+      @links.merge!({ node.letter => node })
     end
     # @links.push(node)
   end

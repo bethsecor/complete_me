@@ -9,9 +9,9 @@ class TreeTest < Minitest::Test
     assert tree.respond_to?(:push)
   end
 
-  def test_tree_pushes_letter
+  def test_tree_pushes_one_letter
     tree = Tree.new
-    tree.push("p")
-    
+    tree.push("p", false)
+    puts tree.inspect
   end
 end
