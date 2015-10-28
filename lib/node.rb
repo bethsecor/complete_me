@@ -32,14 +32,9 @@ class Node
 
   def find_words(prefix, array_suggestions=[])
     @links.each_with_index do |(letter, node), i|
-      # binding.pry
       prefix = prefix.chop if i > 0
       prefix += letter
       add_word(letter, prefix, array_suggestions)
-      # if complete_word?(letter)
-      #   array_suggestions << prefix
-      # end
-      # binding.pry
       node.find_words(prefix, array_suggestions)
     end
     array_suggestions
