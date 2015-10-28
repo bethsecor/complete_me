@@ -21,7 +21,9 @@ class Node
   end
 
   def add_letters(prefix, array_suggestions=[])
-    @links.each do |letter, node|
+    @links.each_with_index do |(letter, node), i|
+      # binding.pry
+      prefix = prefix.chop if i > 0
       prefix += letter
       if letter == ""
         array_suggestions << prefix
