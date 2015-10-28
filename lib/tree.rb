@@ -36,8 +36,7 @@ class Tree
         array_suggestions << prefix
       end
       # binding.pry
-      base_prefix = prefix
-      node.add_letters(prefix, array_suggestions, base_prefix)
+      node.add_letters(prefix, array_suggestions)
     end
     array_suggestions
   end

@@ -20,15 +20,14 @@ class Node
     links[letter]
   end
 
-  def add_letters(prefix, array_suggestions=[], base_prefix)
+  def add_letters(prefix, array_suggestions=[])
     @links.each do |letter, node|
       prefix += letter
       if letter == ""
         array_suggestions << prefix
-        prefix = base_prefix
       end
       # binding.pry
-      node.add_letters(prefix, array_suggestions, base_prefix)
+      node.add_letters(prefix, array_suggestions)
     end
     array_suggestions
   end

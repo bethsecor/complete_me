@@ -9,8 +9,8 @@ class CompleteMe
   end
 
   def insert(word)
-    @tree.insert(word)
     @count += 1
+    @tree.insert(word)
   end
 
   def populate(string_of_words)

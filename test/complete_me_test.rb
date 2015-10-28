@@ -28,9 +28,10 @@ class CompleteMeTest < Minitest::Test
 
   def test_suggests_the_right_words
     completion = CompleteMe.new
+    completion.insert("pie")
     completion.insert("pizza")
     completion.insert("pizzeria")
-    completion.insert("pie")
-    assert_equal ["pizza", "pizzeria"], completion.suggest("piz")
+    completion.insert("pizzicato")
+    assert_equal ["pizza", "pizzeria","pizzicato"], completion.suggest("piz")
   end
 end
