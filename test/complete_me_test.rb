@@ -8,7 +8,7 @@ class CompleteMeTest < Minitest::Test
     completion = CompleteMe.new
     assert completion.respond_to?(:insert)
     assert completion.respond_to?(:count)
-    # assert completion.respond_to?(:suggest)
+    assert completion.respond_to?(:suggest)
     # assert completion.respond_to?(:populate)
     # assert completion.respond_to?(:select)
   end
@@ -19,7 +19,7 @@ class CompleteMeTest < Minitest::Test
     assert_equal 1, completion.count
   end
 
-  def test_suggests_does_the_thing
+  def test_suggests_the_right_words
     completion = CompleteMe.new
     completion.insert("pizza")
     completion.insert("pizzeria")

@@ -19,6 +19,27 @@ class Tree
     node.create_link("")
   end
 
-  def suggest
+  def prefix_links(prefix)
+    link = "@head"
+    prefix.chars.each do |letter|
+      link += ".links['#{letter}']"
+    end
+    eval(link).links
+  end
+
+  def add_letters(prefix, array_suggestions=[])
+    starting_links = prefix_links(prefix)
+    starting_links.each do |key, value|
+      prefix += value.letter
+      if value.letter == ""
+        array_suggestions << prefix
+      end
+      value.add_letters(prefix, array_suggestions)
+    end
+    array_suggestions
+  end
+
+  def suggest(prefix)
+    add_letters(prefix)
   end
 end
