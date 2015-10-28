@@ -1,3 +1,5 @@
+require 'pry'
+
 class Node
   attr_accessor :letter, :links
 
@@ -18,13 +20,15 @@ class Node
     links[letter]
   end
 
-  def add_letters(prefix, array_suggestions=[])
-    @links.each do |key, value|
-      prefix += value.letter
-      if value.letter == ""
+  def add_letters(prefix, array_suggestions=[], base_prefix)
+    @links.each do |letter, node|
+      prefix += letter
+      if letter == ""
         array_suggestions << prefix
+        prefix = base_prefix
       end
-      value.add_letters(prefix, array_suggestions)
+      # binding.pry
+      node.add_letters(prefix, array_suggestions, base_prefix)
     end
     array_suggestions
   end

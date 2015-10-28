@@ -1,4 +1,5 @@
 require './lib/node'
+require 'pry'
 
 class Tree
   attr_reader :head
@@ -29,12 +30,14 @@ class Tree
 
   def add_letters(prefix, array_suggestions=[])
     starting_links = prefix_links(prefix)
-    starting_links.each do |key, value|
-      prefix += value.letter
-      if value.letter == ""
+    starting_links.each do |letter, node|
+      prefix += letter
+      if letter == ""
         array_suggestions << prefix
       end
-      value.add_letters(prefix, array_suggestions)
+      # binding.pry
+      base_prefix = prefix
+      node.add_letters(prefix, array_suggestions, base_prefix)
     end
     array_suggestions
   end
