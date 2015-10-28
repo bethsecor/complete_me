@@ -30,6 +30,7 @@ class Tree
 
   def add_letters(prefix, array_suggestions=[])
     starting_links = prefix_links(prefix)
+
     starting_links.each_with_index do |(letter, node), i|
           # binding.pry
       prefix = prefix.chop if i > 0
