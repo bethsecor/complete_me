@@ -10,7 +10,7 @@ class CompleteMeTest < Minitest::Test
     assert completion.respond_to?(:count)
     assert completion.respond_to?(:suggest)
     assert completion.respond_to?(:populate)
-    # assert completion.respond_to?(:select)
+    assert completion.respond_to?(:select)
   end
 
   def test_insert_a_word
@@ -28,10 +28,12 @@ class CompleteMeTest < Minitest::Test
 
   def test_suggests_the_right_words
     completion = CompleteMe.new
+    completion.insert("pi")
     completion.insert("pie")
     completion.insert("pizza")
     completion.insert("pizzeria")
     completion.insert("pizzicato")
-    assert_equal ["pizza", "pizzeria","pizzicato"], completion.suggest("piz")
+    assert_equal ["pizza", "pizzeria", "pizzicato"], completion.suggest("piz")
+    assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
   end
 end

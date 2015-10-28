@@ -25,7 +25,7 @@ class Node
       # binding.pry
       prefix = prefix.chop if i > 0
       prefix += letter
-      if letter == ""
+      if letter == " "
         array_suggestions << prefix
       end
       # binding.pry

@@ -17,7 +17,7 @@ class Tree
       end
       node = node.link_for(letter)
     end
-    node.create_link("")
+    node.create_link(" ")
   end
 
   def prefix_links(prefix)
@@ -31,18 +31,18 @@ class Tree
   def add_letters(prefix, array_suggestions=[])
     starting_links = prefix_links(prefix)
     starting_links.each_with_index do |(letter, node), i|
+          # binding.pry
       prefix = prefix.chop if i > 0
       prefix += letter
-      if letter == ""
+      if letter == " "
         array_suggestions << prefix
       end
-      # binding.pry
       node.add_letters(prefix, array_suggestions)
     end
     array_suggestions
   end
 
   def suggest(prefix)
-    add_letters(prefix)
+    add_letters(prefix).map { |word| word.chop }
   end
 end
