@@ -6,6 +6,7 @@ class CompleteMe
   def initialize
     @tree = Tree.new
     @count = 0
+    @selections = {}
   end
 
   def insert(word)
@@ -26,5 +27,10 @@ class CompleteMe
   end
 
   def select(prefix, chosen_selection)
-  end
+    if @selections.has_key?(chosen_selection)
+      @selections[chosen_selection] += 1
+    else
+      @selections[chosen_selection] = 1
+    end
+    @selections.sort_by  { |key, value| value }
 end

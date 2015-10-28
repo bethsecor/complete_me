@@ -40,4 +40,16 @@ class CompleteMeTest < Minitest::Test
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("")
   end
 
+  def test_select_changes_order_of_suggestions
+    skip
+    completion = CompleteMe.new
+    completion.insert("pi")
+    completion.insert("pie")
+    completion.insert("pizza")
+    completion.insert("pizzeria")
+    completion.insert("pizzicato")
+    completion.select("piz", "pizza")
+    assert_equal ["pizza", "pi", "pie", "pizzeria", "pizzicato"], completion.suggest("pi")
+  end
+
 end
