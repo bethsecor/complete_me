@@ -34,6 +34,7 @@ class CompleteMeTest < Minitest::Test
     completion.insert("pizzeria")
     completion.insert("pizzicato")
     assert_equal ["pizza", "pizzeria", "pizzicato"], completion.suggest("piz")
+    refute_equal ["pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("piz")
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("p")
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("")

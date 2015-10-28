@@ -28,22 +28,24 @@ class Tree
     eval(link).links
   end
 
-  def add_letters(prefix, array_suggestions=[])
-    starting_links = prefix_links(prefix)
-
-    starting_links.each_with_index do |(letter, node), i|
+  def find_words(prefix, array_suggestions=[])
+    prefix_links(prefix).each_with_index do |(letter, node), i|
           # binding.pry
       prefix = prefix.chop if i > 0
       prefix += letter
-      if letter == " "
+      if complete_word?(letter)
         array_suggestions << prefix
       end
-      node.add_letters(prefix, array_suggestions)
+      node.find_words(prefix, array_suggestions)
     end
     array_suggestions
   end
 
+  def complete_word?(letter)
+    letter == " "
+  end
+
   def suggest(prefix)
-    add_letters(prefix).map { |word| word.chop }
+    find_words(prefix).map { |word| word.chop }
   end
 end

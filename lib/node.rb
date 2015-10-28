@@ -20,17 +20,21 @@ class Node
     links[letter]
   end
 
-  def add_letters(prefix, array_suggestions=[])
+  def find_words(prefix, array_suggestions=[])
     @links.each_with_index do |(letter, node), i|
       # binding.pry
       prefix = prefix.chop if i > 0
       prefix += letter
-      if letter == " "
+      if complete_word?(letter)
         array_suggestions << prefix
       end
       # binding.pry
-      node.add_letters(prefix, array_suggestions)
+      node.find_words(prefix, array_suggestions)
     end
     array_suggestions
+  end
+
+  def complete_word?(letter)
+    letter == " "
   end
 end
