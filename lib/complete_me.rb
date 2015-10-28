@@ -23,7 +23,10 @@ class CompleteMe
   end
 
   def suggest(prefix)
-    @tree.suggest(prefix)
+    suggestions = @tree.suggest(prefix)
+    priorities = @selections.keys.select { |word| suggestions.include?(word)}
+    suggestions = suggestions - priorities
+    priorities + suggestions
   end
 
   def select(prefix, chosen_selection)
@@ -32,5 +35,6 @@ class CompleteMe
     else
       @selections[chosen_selection] = 1
     end
-    @selections.sort_by  { |key, value| value }
+    @selections = @selections.sort_by { |key, value| value }.to_h
+  end
 end

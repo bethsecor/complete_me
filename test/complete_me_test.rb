@@ -41,7 +41,6 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_select_changes_order_of_suggestions
-    skip
     completion = CompleteMe.new
     completion.insert("pi")
     completion.insert("pie")
