@@ -14,6 +14,11 @@ class TreeTest < Minitest::Test
     assert tree.respond_to?(:complete_word?)
   end
 
+  def test_tree_initializes_with_empty_string_head
+    tree = Tree.new
+    assert_equal "", tree.head.letter
+  end
+
   def test_tree_inserts_one_letter_word
     tree = Tree.new
     tree.insert("A")
