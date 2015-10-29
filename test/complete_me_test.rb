@@ -113,14 +113,61 @@ class CompleteMeTest < Minitest::Test
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("")
   end
 
-  def test_select_changes_order_of_suggestions
+  def test_select_changes_order_of_suggestions_after_one
     completion = CompleteMe.new
     completion.insert("pi")
     completion.insert("pie")
     completion.insert("pizza")
     completion.insert("pizzeria")
     completion.insert("pizzicato")
+    assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
     completion.select("piz", "pizza")
     assert_equal ["pizza", "pi", "pie", "pizzeria", "pizzicato"], completion.suggest("pi")
+  end
+
+  def test_select_changes_order_of_suggestions_after_two
+    completion = CompleteMe.new
+    completion.insert("pi")
+    completion.insert("pie")
+    completion.insert("pizza")
+    completion.insert("pizzeria")
+    completion.insert("pizzicato")
+    assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
+    completion.select("piz", "pizza")
+    assert_equal ["pizza", "pi", "pie", "pizzeria", "pizzicato"], completion.suggest("pi")
+    completion.select("piz", "pizzicato")
+    assert_equal ["pizzicato", "pizza", "pi", "pie", "pizzeria"], completion.suggest("pi")
+  end
+
+  def test_select_changes_order_of_suggestions_after_three
+    completion = CompleteMe.new
+    completion.insert("pi")
+    completion.insert("pie")
+    completion.insert("pizza")
+    completion.insert("pizzeria")
+    completion.insert("pizzicato")
+    assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
+    completion.select("piz", "pizza")
+    assert_equal ["pizza", "pi", "pie", "pizzeria", "pizzicato"], completion.suggest("pi")
+    completion.select("piz", "pizzicato")
+    assert_equal ["pizzicato", "pizza", "pi", "pie", "pizzeria"], completion.suggest("pi")
+    completion.select("piz", "pizzicato")
+    assert_equal ["pizzicato", "pizza", "pi", "pie", "pizzeria"], completion.suggest("pi")
+  end
+
+  def test_select_changes_order_of_suggestions_after_five
+    completion = CompleteMe.new
+    completion.insert("pi")
+    completion.insert("pie")
+    completion.insert("pizza")
+    completion.insert("pizzeria")
+    completion.insert("pizzicato")
+    assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
+    completion.select("piz", "pizza")
+    assert_equal ["pizza", "pi", "pie", "pizzeria", "pizzicato"], completion.suggest("pi")
+    completion.select("piz", "pizzicato")
+    assert_equal ["pizzicato", "pizza", "pi", "pie", "pizzeria"], completion.suggest("pi")
+    completion.select("piz", "pizza")
+    assert_equal ["pizza", "pizzicato", "pi", "pie", "pizzeria"], completion.suggest("pi")
   end
 end

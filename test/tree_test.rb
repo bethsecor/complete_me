@@ -89,5 +89,4 @@ class TreeTest < Minitest::Test
     refute tree.complete_word?("a")
     assert tree.complete_word?(" ")
   end
-
 end

@@ -35,6 +35,6 @@ class CompleteMe
     else
       @selections[chosen_selection] = 1
     end
-    @selections = @selections.sort_by { |key, value| value }.to_h
+    @selections = @selections.sort_by { |key, value| value }.reverse.to_h
   end
 end
