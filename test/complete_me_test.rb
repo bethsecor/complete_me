@@ -62,9 +62,16 @@ class CompleteMeTest < Minitest::Test
 
   def test_populates_three_words
     completion = CompleteMe.new
-    tiny_dictionary = "British\nbaking\nshow"
+    tiny_dictionary = "British\nbaking\nshow\n"
     completion.populate(tiny_dictionary)
     assert_equal 3, completion.count
+  end
+
+  def test_populates_several_words
+    completion = CompleteMe.new
+    tiny_dictionary = "I\nam\nwatching\nthe\nGreat\nBritish\nbaking\nshow\n"
+    completion.populate(tiny_dictionary)
+    assert_equal 8, completion.count
   end
 
   def test_suggests_the_one_word_inserted
