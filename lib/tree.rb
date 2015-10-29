@@ -26,6 +26,7 @@ class Tree
 
   def find_words(prefix)
     array_suggestions = []
+    return array_suggestions if prefix_links(prefix).nil?
     prefix_links(prefix).each_with_index do |(letter, node), i|
       prefix = prefix.chop if i > 0
       prefix += letter
@@ -39,8 +40,9 @@ class Tree
     node = @head
     prefix.chars.each do |letter|
       node = node.link_for(letter)
+      return nil if node.nil?
     end
-    node.links
+      node.links unless node.nil?
   end
 
   def add_word(letter, prefix, array_suggestions)

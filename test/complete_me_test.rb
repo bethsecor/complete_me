@@ -13,10 +13,37 @@ class CompleteMeTest < Minitest::Test
     assert completion.respond_to?(:select)
   end
 
+  def test_insert_a_one_letter_word
+    completion = CompleteMe.new
+    completion.insert("A")
+    assert_equal 1, completion.count
+  end
+
+  def test_insert_a_small_word
+    completion = CompleteMe.new
+    completion.insert("pie")
+    assert_equal 1, completion.count
+  end
+
   def test_insert_a_word
     completion = CompleteMe.new
     completion.insert("pizza")
     assert_equal 1, completion.count
+  end
+
+  def test_insert_two_words
+    completion = CompleteMe.new
+    completion.insert("bread")
+    completion.insert("biscuit")
+    assert_equal 2, completion.count
+  end
+
+  def test_insert_three_words
+    completion = CompleteMe.new
+    completion.insert("bread")
+    completion.insert("biscuit")
+    completion.insert("rolls")
+    assert_equal 3, completion.count
   end
 
   def test_populates_two_words
@@ -24,6 +51,17 @@ class CompleteMeTest < Minitest::Test
     tiny_dictionary = "pizza\nprogramming\n"
     completion.populate(tiny_dictionary)
     assert_equal 2, completion.count
+  end
+
+  def test_suggests_the_one_word_inserted
+    completion = CompleteMe.new
+    completion.insert("cake")
+    assert_equal ["cake"], completion.suggest("")
+    assert_equal ["cake"], completion.suggest("c")
+    assert_equal ["cake"], completion.suggest("ca")
+    assert_equal ["cake"], completion.suggest("cak")
+    assert_equal ["cake"], completion.suggest("cake")
+    assert_equal [], completion.suggest("ra")
   end
 
   def test_suggests_the_right_words
