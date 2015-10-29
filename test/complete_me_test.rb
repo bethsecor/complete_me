@@ -46,11 +46,25 @@ class CompleteMeTest < Minitest::Test
     assert_equal 3, completion.count
   end
 
+  def test_populates_one_word
+    completion = CompleteMe.new
+    tiny_dictionary = "programming\n"
+    completion.populate(tiny_dictionary)
+    assert_equal 1, completion.count
+  end
+
   def test_populates_two_words
     completion = CompleteMe.new
     tiny_dictionary = "pizza\nprogramming\n"
     completion.populate(tiny_dictionary)
     assert_equal 2, completion.count
+  end
+
+  def test_populates_three_words
+    completion = CompleteMe.new
+    tiny_dictionary = "British\nbaking\nshow"
+    completion.populate(tiny_dictionary)
+    assert_equal 3, completion.count
   end
 
   def test_suggests_the_one_word_inserted
@@ -61,7 +75,13 @@ class CompleteMeTest < Minitest::Test
     assert_equal ["cake"], completion.suggest("ca")
     assert_equal ["cake"], completion.suggest("cak")
     assert_equal ["cake"], completion.suggest("cake")
+  end
+
+  def test_suggests_nothing_for_prefix_not_in_tree
+    completion = CompleteMe.new
+    completion.insert("cake")
     assert_equal [], completion.suggest("ra")
+    assert_equal [], completion.suggest("b")
   end
 
   def test_suggests_the_right_words
@@ -73,6 +93,7 @@ class CompleteMeTest < Minitest::Test
     completion.insert("pizzicato")
     assert_equal ["pizza", "pizzeria", "pizzicato"], completion.suggest("piz")
     refute_equal ["pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("piz")
+    refute_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("piz")
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("pi")
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("p")
     assert_equal ["pi", "pie", "pizza", "pizzeria", "pizzicato"], completion.suggest("")
