@@ -69,9 +69,16 @@ class CompleteMeTest < Minitest::Test
 
   def test_populates_several_words
     completion = CompleteMe.new
-    tiny_dictionary = "I\nam\nwatching\nthe\nGreat\nBritish\nbaking\nshow\n"
+    tiny_dictionary = "I\nam\nwatching\nthe\ngreat\nBritish\nbaking\nshow\n"
     completion.populate(tiny_dictionary)
     assert_equal 8, completion.count
+  end
+
+  def test_populates_dictionary
+    completion = CompleteMe.new
+    dictionary = File.read("/usr/share/dict/words")
+    completion.populate(dictionary)
+    assert_equal 235886, completion.count
   end
 
   def test_suggests_the_one_word_inserted
@@ -116,5 +123,4 @@ class CompleteMeTest < Minitest::Test
     completion.select("piz", "pizza")
     assert_equal ["pizza", "pi", "pie", "pizzeria", "pizzicato"], completion.suggest("pi")
   end
-
 end
