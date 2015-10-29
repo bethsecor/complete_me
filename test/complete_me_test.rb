@@ -98,6 +98,12 @@ class CompleteMeTest < Minitest::Test
     assert_equal [], completion.suggest("b")
   end
 
+  def test_suggests_nothing_for_prefix_word_not_in_tree
+    completion = CompleteMe.new
+    completion.insert("cake")
+    assert_equal [], completion.suggest("cat")
+  end
+
   def test_suggests_the_right_words
     completion = CompleteMe.new
     completion.insert("pi")
