@@ -20,6 +20,14 @@ class TreeTest < Minitest::Test
     assert_equal "A", tree.head.links["A"].letter
   end
 
+  def test_tree_inserts_one_letter_word_lowercase_and_uppercase
+    tree = Tree.new
+    tree.insert("A")
+    tree.insert("a")
+    assert_equal "A", tree.head.links["A"].letter
+    assert_equal "a", tree.head.links["a"].letter
+  end
+
   def test_tree_inserts_two_letter_word
     tree = Tree.new
     tree.insert("pi")
@@ -82,6 +90,26 @@ class TreeTest < Minitest::Test
     assert_equal "z", tree.head.links["p"].links["i"].links["z"].letter
     assert_equal "e", tree.head.links["p"].links["i"].links["e"].letter
     assert_equal "z", tree.head.links["p"].links["i"].links["z"].links["z"].letter
+  end
+
+  def test_suggests_the_one_word_inserted
+    tree = Tree.new
+    tree.insert("cake")
+    assert_equal ["cake"], tree.suggest("")
+    assert_equal ["cake"], tree.suggest("c")
+    assert_equal ["cake"], tree.suggest("ca")
+    assert_equal ["cake"], tree.suggest("cak")
+    assert_equal ["cake"], tree.suggest("cake")
+  end
+
+  def test_find_words
+    tree = Tree.new
+    tree.insert("cake")
+    assert_equal ["cake "], tree.find_words("")
+    assert_equal ["cake "], tree.find_words("c")
+    assert_equal ["cake "], tree.find_words("ca")
+    assert_equal ["cake "], tree.find_words("cak")
+    assert_equal ["cake "], tree.find_words("cake")
   end
 
   def test_complete_word?
