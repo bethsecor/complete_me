@@ -1,5 +1,4 @@
-require 'pry'
-
+# Creates nodes for the trie.
 class Node
   attr_accessor :letter, :links
 
@@ -9,7 +8,7 @@ class Node
   end
 
   def links_to?(letter)
-    links.has_key?(letter)
+    links.key?(letter)
   end
 
   def create_link(letter)
@@ -21,7 +20,7 @@ class Node
   end
 
   def complete_word?(letter)
-    letter == " "
+    letter == ' '
   end
 
   def add_word(letter, prefix, array_suggestions)

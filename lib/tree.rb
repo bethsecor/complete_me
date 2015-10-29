@@ -1,11 +1,11 @@
 require_relative 'node'
-require 'pry'
 
+# Creates a trie by inserting words. Gives word suggestions based on a prefix.
 class Tree
   attr_reader :head
 
   def initialize
-      @head = Node.new("")
+    @head = Node.new('')
   end
 
   def insert(word)
@@ -17,11 +17,11 @@ class Tree
       end
       node = node.link_for(letter)
     end
-    node.create_link(" ")
+    node.create_link(' ')
   end
 
   def suggest(prefix)
-    find_words(prefix).map { |word| word.chop }
+    find_words(prefix).map(&:chop)
   end
 
   def find_words(prefix)
@@ -42,7 +42,7 @@ class Tree
       node = node.link_for(letter)
       return nil if node.nil?
     end
-      node.links unless node.nil?
+    node.links unless node.nil?
   end
 
   def add_word(letter, prefix, array_suggestions)
@@ -52,6 +52,6 @@ class Tree
   end
 
   def complete_word?(letter)
-    letter == " "
+    letter == ' '
   end
 end
