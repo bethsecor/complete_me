@@ -30,7 +30,7 @@ class Node
   end
 
   def find_words(prefix, array_suggestions)
-    @links.each_with_index do |(letter, node), i|
+    links.each_with_index do |(letter, node), i|
       prefix = prefix.chop if i > 0
       prefix += letter
       add_word(letter, prefix, array_suggestions)
